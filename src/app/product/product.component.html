@@ -1,0 +1,54 @@
+<div class="flex justify-content-between">
+    <h2>Products</h2>
+    <p-button label="Add Products" (click)="showAddModal()"></p-button>
+</div><br>
+<p-table [value]="products">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Action</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product>
+        <tr>
+            <td>{{ product.name }}</td>
+            <td>{{ product.price }}</td>
+            <td>{{ product.category }}</td>
+            <td>
+                <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-sucess mr-2"
+                (click)="showEditModal(product)"></button>
+                <button pButton icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteproduct(product)"></button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+<br><br><br>
+
+<app-add-edit-product 
+[displayAddEditModal]="displayAddEditModal"
+[selectedProduct]="selectedProduct"
+(clickClose)="hideAddModal($event)"
+(clickAdd)="saveorUpdateProductList($event)"
+></app-add-edit-product>
+<p-confirmDialog header="Delete"></p-confirmDialog>
+<p-toast position="bottom-right"></p-toast>
+
+<h2>Bar Chart</h2>
+
+<div style="display: flex; flex-direction: column; margin-top: 20px;">
+    <ngx-charts-bar-vertical
+      [results]="barChartData"
+      [xAxis]="true"
+      [yAxis]="true"
+      [legend]="false"
+      [showXAxisLabel]="true"
+      [xAxisLabel]="'Product Name'"
+      [showYAxisLabel]="true"
+      [yAxisLabel]="'Price'"
+      [barPadding]="10"
+      [roundDomains]="true"  
+    >
+    </ngx-charts-bar-vertical>
+</div>
